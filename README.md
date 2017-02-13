@@ -1,3 +1,7 @@
 # P(u)shit
 
-> a `cp` helper
+> a `cp` helper   
+
+### How   
+
+- `cp` pshit to `/bin`
