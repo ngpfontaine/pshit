@@ -9,14 +9,15 @@
 git clone https://github.com/ngpfontaine/pshit.git && cd pshit
 ```   
 
-2. copy script to new
+2. copy script to new - this will be dedicated to copying from 1 specific directory to 1 specific other
 ```
 cp pshit pshit-dev
 ```   
 
 3. edit pathing variables. save.
 ```
-vim pshit-dev
+vim pshit-dev   
+   
 baseDir='/example/local/path'
 remoteDir='/example/remote/path'
 ```   
