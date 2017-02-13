@@ -5,7 +5,7 @@
 ### Setup   
 
 1. download **pshit**
-2. `cd pshit`  # enter directory
+2. `cd pshit  # enter directory`
 3. `cp pshit pshit-dev  # create new script from template`
 4. `vim pshit-dev  # edit in wtvr text editor`
 5. modify `baseDir` & `remoteDir` to your source & receiving directories respectively
