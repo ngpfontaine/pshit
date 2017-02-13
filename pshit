@@ -7,8 +7,9 @@
 # EX 3: pushverifydev css
 # EX 3: pushverifydev all
 
-ulDir='/home/mursionweb/verify-dev'
-servDir='/var/www/verify-dev'
+baseDir='~/user/example/local/path'
+remoteDir='/example/remote/path'
+scriptName='basename "$0"'
 
 bold=$(tput bold)
 normal=$(tput sgr0)
@@ -17,18 +18,18 @@ normal=$(tput sgr0)
 printf "\033c"
 
 # HEADER INFO
-echo "-- PUSHVERIFYDEV --"
+echo "-- $scriptName --"
 
 # HELP INFO
 if [[ $1 == "-help" ]];
 then
   echo ""
   echo "valid cmd examples:"
-  echo "$ ${bold}pushverifydev index.html${normal}   will push -f arg to main -d"
-  echo "$ ${bold}pushverifydev css${normal}   will push -r -d arg to -d arg"
-  echo "$ ${bold}pushverifydev css/main.css css${normal}   [will push -f arg to -d arg"
-  echo "$ ${bold}pushverifydev files${normal}   will push /* to main -d"
-  echo "$ ${bold}pushverifydev all${normal}   will push /* -r to main -d"
+  echo "$ ${bold}$scriptName index.html${normal}   will push -f arg to main -d"
+  echo "$ ${bold}$scriptName css${normal}   will push -r -d arg to -d arg"
+  echo "$ ${bold}$scriptName css/main.css css${normal}   [will push -f arg to -d arg"
+  echo "$ ${bold}$scriptName files${normal}   will push /* to main -d"
+  echo "$ ${bold}$scriptName all${normal}   will push /* -r to main -d"
 
 # PUSH ALL
 elif [[ $1 == "all" ]];
@@ -42,17 +43,17 @@ then
   sudo cp $ulDir/* $servDir/
   echo "Pushing ${bold}$ulDir/*${normal} to ${bold}$servDir/${normal}";
 
-# $1 FILE ARGUMENT, EX: pushverifydev scripts/main.js [...]
+# $1 FILE ARGUMENT, EX: $scriptName scripts/main.js [...]
 elif [[ -f $ulDir/$1 ]];
 then
 
-  # $2 NO SERVER DIR ARG, EX: pushverifydev scripts/main.js
+  # $2 NO SERVER DIR ARG, EX: $scriptName scripts/main.js
   if [[ -z $2 ]];
   then
     sudo cp $ulDir/$1 $servDir/
     echo "Pushing ${bold}$ulDir/$1${normal} to ${bold}$servDir/${normal}";
 
-  # $2 SERVER DIR ARG, EX: pushverifydev scripts/main.js scripts
+  # $2 SERVER DIR ARG, EX: $scriptName scripts/main.js scripts
   elif [[ -d $ulDir/$2 ]];
   then
     sudo cp $ulDir/$1 $servDir/$2/
@@ -65,7 +66,6 @@ elif [[ -d $ulDir/$1 && -z $2 ]];
 then
   sudo cp $ulDir/$1/* -r $servDir/$1/
   echo "Pushing  ${bold}$ulDir/$1/*${normal} to ${bold}$servDir/$1/${normal}"
-  #echo "pushed -d $1 -r to $servDir/$1/ b/c no server arg"
 
 # ERROR, NO ARGUMENT
 else
