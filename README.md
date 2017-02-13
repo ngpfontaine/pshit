@@ -9,12 +9,12 @@
 git clone https://github.com/ngpfontaine/pshit.git && cd pshit
 ```   
 
-- Copy script to new - this will be dedicated to copying from 1 specific directory to 1 specific other.
+- Make a new **pshit** from template.
 ```
 cp pshit pshit-dev
 ```   
 
-- Edit pathing variables with your intended paths, then save.
+- Open in editor and change pathing variables with your intended paths, then save.
 ```
 vim pshit-dev   
    
