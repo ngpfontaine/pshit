@@ -7,8 +7,8 @@ scriptName="$(basename $0)"
 # EX 3: $scriptName css
 # EX 3: $scriptName all
 
-baseDir='/example/local/dir'
-remeoteDir='/example/remote/dir'
+baseDir='/example/local/path'
+remeoteDir='/example/remote/path'
 
 bold=$(tput bold)
 normal=$(tput sgr0)
@@ -27,17 +27,17 @@ then
   echo "$ ${bold}$scriptName index.html${normal}   will push -f arg to main -d"
   echo "$ ${bold}$scriptName css${normal}   will push -r -d arg to -d arg"
   echo "$ ${bold}$scriptName css/main.css css${normal}   [will push -f arg to -d arg"
-  echo "$ ${bold}$scriptName files${normal}   will push /* to main -d"
-  echo "$ ${bold}$scriptName all${normal}   will push /* -r to main -d"
+  echo "$ ${bold}$scriptName --files${normal}   will push /* to main -d"
+  echo "$ ${bold}$scriptName --all${normal}   will push /* -r to main -d"
 
 # PUSH ALL
-elif [[ $1 == "all" ]];
+elif [[ $1 == "--all" ]];
 then
   sudo cp $ulDir/* -r $servDir/
   echo "Pushing ${bold}$ulDir/* -r${normal} to ${bold}$servDir/${normal}"
 
 # PUSH FILES IN MAIN DIR
-elif [[ $1 == "files" ]];
+elif [[ $1 == "--files" ]];
 then
   sudo cp $ulDir/* $servDir/
   echo "Pushing ${bold}$ulDir/*${normal} to ${bold}$servDir/${normal}";
