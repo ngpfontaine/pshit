@@ -4,17 +4,19 @@
 
 ### Setup   
 
-1. download *pshit*
+1. download **pshit**
 2. `cd pshit`  # enter directory
-3. `cp pshit pshit-dev`  # create new script from template
-4. `vim pshit-dev`  # edit in wtvr text editor
+3. `cp pshit pshit-dev  # create new script from template`
+4. `vim pshit-dev  # edit in wtvr text editor`
 5. modify `baseDir` & `remoteDir` to your source & receiving directories respectively
-3. `chmod +x pshit-dev`  # make executable
-4. `sudo cp pshit-dev /bin`  # add to root bin, requires sudo
+6. `chmod +x pshit-dev  # make executable`
+7. `sudo cp pshit-dev /bin  # add to root bin, requires sudo`
+*~or~*
+7. `sudo ln -s ~/example/path/pshit-dev /bin/pshit-dev  # create symlink`
 
 ### Use   
 
-list help info
+list **help** info
 `pshit-dev --help`   
 
 
