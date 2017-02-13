@@ -4,13 +4,37 @@
 
 ### Setup   
 
-1. download **pshit**
-2. `cd pshit  // enter directory`
-3. `cp pshit pshit-dev  // create new script from template`
-4. `vim pshit-dev  // edit in wtvr text editor`
-5. modify `baseDir` & `remoteDir` to your source & receiving directories respectively
-6. `chmod +x pshit-dev  // make executable`
-7. `sudo ln -s ~/example/path/pshit-dev /bin/pshit-dev  # create symlink`
+- download **pshit**   
+
+- enter directory
+```
+cd pshit
+```   
+
+- copy script to new
+```
+cp pshit pshit-dev
+```   
+
+- edit
+```
+vim pshit-dev
+```   
+
+- modify `baseDir` & `remoteDir` to your source & receiving directories respectively
+```
+baseDir='/example/local/path'
+remoteDir='/example/remote/path'
+```   
+
+- make executable
+```
+chmod +x pshit-dev
+```   
+- create symlink in **/bin**
+```
+sudo ln -s ~/example/path/pshit-dev /bin/pshit-dev
+```   
 
 ### Use   
 
