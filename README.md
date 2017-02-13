@@ -2,6 +2,13 @@
 
 > a `cp` helper   
 
-### How   
+### Setup   
 
-- `cp` pshit to `/bin`
+- download *pshit*
+- `cd pshit`
+- `chmod +x pshit`
+- `sudo cp pshit /bin`
+
+### Use   
+
+`pshit --help`
