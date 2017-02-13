@@ -4,34 +4,26 @@
 
 ### Setup   
 
-- download **pshit**   
+1. download **pshit**   
 
-- enter directory
+2. enter directory, and copy script to new
 ```
-cd pshit
+cd pshit && cp pshit pshift-dev
 ```   
 
-- copy script to new
-```
-cp pshit pshit-dev
-```   
-
-- edit
+3. edit pathing variables. save.
 ```
 vim pshit-dev
-```   
-
-- modify `baseDir` & `remoteDir` to your source & receiving directories respectively
-```
 baseDir='/example/local/path'
 remoteDir='/example/remote/path'
 ```   
 
-- make executable
+4. make executable
 ```
 chmod +x pshit-dev
 ```   
-- create symlink in **/bin**
+
+5. create symlink in **/bin**
 ```
 sudo ln -s ~/example/path/pshit-dev /bin/pshit-dev
 ```   
