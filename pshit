@@ -1,16 +1,14 @@
-#!/bin/sh
+#!/bin/bash
 
 # PUSH FILES, DIRECTORIES, OR RECURSIVE ALL TO LIVE SERVER
-
-scriptName='basename "$0"'
-
+scriptName="$(basename $0)"
 # EX 1: $scriptName index.html
 # EX 2: $scriptName scripts/main.js scripts
 # EX 3: $scriptName css
 # EX 3: $scriptName all
 
-baseDir='~/user/example/local/path'
-remoteDir='/example/remote/path'
+baseDir='/example/local/dir'
+remeoteDir='/example/remote/dir'
 
 bold=$(tput bold)
 normal=$(tput sgr0)
@@ -22,7 +20,7 @@ printf "\033c"
 echo "-- $scriptName --"
 
 # HELP INFO
-if [[ $1 == "-help" ]];
+if [[ $1 == "--help" ]];
 then
   echo ""
   echo "valid cmd examples:"
@@ -36,7 +34,7 @@ then
 elif [[ $1 == "all" ]];
 then
   sudo cp $ulDir/* -r $servDir/
-  echo "Pushing ${bold}$ulDir/* -r${normal} to ${bold}$servDir/${normal}";
+  echo "Pushing ${bold}$ulDir/* -r${normal} to ${bold}$servDir/${normal}"
 
 # PUSH FILES IN MAIN DIR
 elif [[ $1 == "files" ]];
@@ -51,26 +49,36 @@ then
   # $2 NO SERVER DIR ARG, EX: $scriptName scripts/main.js
   if [[ -z $2 ]];
   then
-    sudo cp $ulDir/$1 $servDir/
-    echo "Pushing ${bold}$ulDir/$1${normal} to ${bold}$servDir/${normal}";
+    read -p "Push ${bold}$ulDir/$1${normal} to ${bold}$servDir/${normal}? ${bold}y/n${normal}: " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+      sudo cp $ulDir/$1 $servDir/
+      echo "Success! ${bold}$1${normal} has been updated."
+    fi
 
   # $2 SERVER DIR ARG, EX: $scriptName scripts/main.js scripts
   elif [[ -d $ulDir/$2 ]];
   then
     sudo cp $ulDir/$1 $servDir/$2/
-    echo "Pushing ${bold}$ulDir/$1${normal} to ${bold}$servDir/$2/${normal}";
+    echo "Pushing ${bold}$ulDir/$1${normal} to ${bold}$servDir/$2/${normal}"
 
   fi
 
 # $1 DIR ARGUMENT, EX: scripts
 elif [[ -d $ulDir/$1 && -z $2 ]];
 then
-  sudo cp $ulDir/$1/* -r $servDir/$1/
-  echo "Pushing  ${bold}$ulDir/$1/*${normal} to ${bold}$servDir/$1/${normal}"
+  read -p "Push ${bold}$ulDir/$1${normal} to ${bold}$servDir/${normal}? ${bold}y/n${normal}: " -n 1 -r
+  echo
+  if [[ $REPLY =~ ^[Yy]$ ]]
+  then
+    sudo cp $ulDir/$1/* -r $servDir/$1/
+    echo "Success! ${bold}$1/${normal} has been updated."
+  fi
 
 # ERROR, NO ARGUMENT
 else
-  echo "no argument";
+  echo "no argument"
 fi
 
 echo ""
