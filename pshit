@@ -2,14 +2,15 @@
 
 # PUSH FILES, DIRECTORIES, OR RECURSIVE ALL TO LIVE SERVER
 
-# EX 1: pushverifydev index.html
-# EX 2: pushverifydev scripts/main.js scripts
-# EX 3: pushverifydev css
-# EX 3: pushverifydev all
+scriptName='basename "$0"'
+
+# EX 1: $scriptName index.html
+# EX 2: $scriptName scripts/main.js scripts
+# EX 3: $scriptName css
+# EX 3: $scriptName all
 
 baseDir='~/user/example/local/path'
 remoteDir='/example/remote/path'
-scriptName='basename "$0"'
 
 bold=$(tput bold)
 normal=$(tput sgr0)
