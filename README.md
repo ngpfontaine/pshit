@@ -10,8 +10,8 @@
 4. `vim pshit-dev  // edit in wtvr text editor`
 5. modify `baseDir` & `remoteDir` to your source & receiving directories respectively
 6. `chmod +x pshit-dev  // make executable`
-7. `sudo cp pshit-dev /bin  // add to root bin, requires sudo`
-*~or~*
+7. `sudo cp pshit-dev /bin  // add to root bin, requires sudo`   
+*~or~*   
 7. `sudo ln -s ~/example/path/pshit-dev /bin/pshit-dev  # create symlink`
 
 ### Use   
