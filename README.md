@@ -4,11 +4,14 @@
 
 ### Setup   
 
-1. download **pshit**   
-
-2. enter directory, and copy script to new
+1. clone **pshit** wherever you want and enter
 ```
-cd pshit && cp pshit pshift-dev
+git clone https://github.com/ngpfontaine/pshit.git && cd pshit
+```   
+
+2. copy script to new
+```
+cp pshit pshit-dev
 ```   
 
 3. edit pathing variables. save.
