@@ -15,17 +15,19 @@ git clone https://github.com/ngpfontaine/pshit.git ~/pshit && cd ~/pshit
 chmod +x pshit
 ```   
 
-- Create a symlink to your new **pshit** in root **/bin**.
+- Run setup. You will be prompted to enter your  **base** & **target** paths. A symlink will be created or updated from the location of **pshit** to **/bin/pshit**.
 ```
-sudo ln -s ~/pshit/pshit /bin/pshit
-```   
+bash pshit --setup
+```    
 
-- Run setup. You will be prompted to enter your  **base** & **remote** paths.
-```
-pshit --setup
-```   
+---   
 
-- Now **pshit** will copy files from `~/example/` > `/var/www/example.com/public_html/` (**note:** sudo will be invoked). Run ` pshit --setup ` anytime to change it's functionality.   
+- **pshit** can now be run w/o using `$ bash ...`   
+
+- Now **pshit** will copy files from your **base** > **target** path (**note:** sudo will be invoked).   
+
+- Run ` pshit --setup ` anytime to change it's functionality.   
+
 
 ## Use   
 

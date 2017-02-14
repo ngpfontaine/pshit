@@ -3,6 +3,16 @@ baseDir='~/bar'
 targetDir='/var/www/bar.com'
 
 scriptName="$(basename $0)"
+scriptPath="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
+
+# GET PATH OF SCRIPT, EVEN IF IS SYMLINK
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
+  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
 bold=$(tput bold)
 normal=$(tput sgr0)
@@ -25,6 +35,7 @@ then
   echo "$ ${bold}$scriptName css/main.css css${normal}   will push -f arg to -d arg"
   echo "$ ${bold}$scriptName --files${normal}   will push /* to main -d"
   echo "$ ${bold}$scriptName --all${normal}   will push /* -r to main -d"
+	echo "$DIR"
 
 #
 # SETUP FOR PATHING
@@ -38,6 +49,10 @@ then
 
 	read -p "Enter target directory path (ex: ${bold}/var/www/example.com${normal}): " inputSecond
 	sed -i '3s,.*,targetDir=\x27'"$inputSecond"'\x27,g' "$scriptName"
+
+	echo "-----------------------------------------------------"
+	echo "- Creating/updating symlink from ${bold}$DIR/$scriptName${normal} to ${bold}/bin/$scriptName${normal}"
+	sudo ln -sf $DIR/$scriptName /bin/pshit
 
 	echo "-----------------------------------------------------"
 	echo "You are now set up to ${bold}pshit${normal} from: ${bold}$inputFirst${normal} > ${bold}$inputSecond${normal}"
