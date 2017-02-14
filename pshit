@@ -21,6 +21,7 @@ normal=$(tput sgr0)
 printf "\033c"
 # HEADER INFO
 echo ">> ${bold}${scriptName^^}${normal} >>"
+echo "-----------------------------------------------------"
 
 #
 # HELP INFO
@@ -28,14 +29,12 @@ echo ">> ${bold}${scriptName^^}${normal} >>"
 
 if [[ $1 == "--help" ]];
 then
-  echo ""
-  echo "valid cmd examples:"
+  echo "Valid cmd examples:"
   echo "$ ${bold}$scriptName index.html${normal}   will push -f arg to main -d"
   echo "$ ${bold}$scriptName css${normal}   will push -r -d arg to -d arg"
   echo "$ ${bold}$scriptName css/main.css css${normal}   will push -f arg to -d arg"
   echo "$ ${bold}$scriptName --files${normal}   will push /* to main -d"
   echo "$ ${bold}$scriptName --all${normal}   will push /* -r to main -d"
-	echo "$DIR"
 
 #
 # SETUP FOR PATHING
@@ -44,20 +43,25 @@ then
 elif [[ $1 == "--setup" ]];
 then
 
+	# LOG INPUTS TO VARS
 	read -p "Enter base directory (ex: ${bold}~/example${normal}): " inputFirst
 	sed -i '2s,.*,baseDir=\x27'"$inputFirst"'\x27,g' "$scriptName"
 
 	read -p "Enter target directory path (ex: ${bold}/var/www/example.com${normal}): " inputSecond
 	sed -i '3s,.*,targetDir=\x27'"$inputSecond"'\x27,g' "$scriptName"
-
+	
+	# PRINT OUT INFO & SETUP
 	echo "-----------------------------------------------------"
 	echo "- Creating/updating symlink from ${bold}$DIR/$scriptName${normal} to ${bold}/bin/$scriptName${normal}"
 	sudo ln -sf $DIR/$scriptName /bin/pshit
 
 	echo "-----------------------------------------------------"
 	echo "You are now set up to ${bold}pshit${normal} from: ${bold}$inputFirst${normal} > ${bold}$inputSecond${normal}"
+	echo "-----------------------------------------------------"
 	echo "Change anytime by running:"
 	echo "$ ${bold}pshit --setup${normal}"
+	echo "Printout sample commands with:"
+	echo "$ ${bold}pshit --help${normal}"
 
 #
 # KEYWORD ARGUMENTS
