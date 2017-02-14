@@ -1,7 +1,8 @@
 # P(u)shit
 
-> a `cp` helper   
-
+> a `cp` assistant      
+   
+   
 ## Setup   
 
 - Clone **pshit** wherever you want ( ` ~/ ` in this example) and enter.
