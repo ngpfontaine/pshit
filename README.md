@@ -5,7 +5,7 @@
    
 ## Setup   
 
-- Clone **pshit** wherever you want ( ` ~/ ` in this example) and enter.
+- Clone **pshit** wherever you want _(_ ` ~/ ` _in this example)_ and enter directory.
 ```
 git clone https://github.com/ngpfontaine/pshit.git ~/pshit && cd ~/pshit
 ```   
@@ -15,7 +15,7 @@ git clone https://github.com/ngpfontaine/pshit.git ~/pshit && cd ~/pshit
 chmod +x pshit
 ```   
 
-- Run setup. You will be prompted to enter your  **base** & **target** paths. A symlink will be created or updated from the location of **pshit** to **/bin/pshit**.
+- Run setup. **(1)** You will be prompted to enter your  **base** & **target** paths. **(2)** A symlink will be created or updated from the location of **pshit** to **/bin/pshit**.
 ```
 bash pshit --setup
 ```    
