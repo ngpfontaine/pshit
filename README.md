@@ -2,7 +2,7 @@
 
 > a `cp` helper   
 
-### Setup   
+## Setup   
 
 - Clone **pshit** wherever you want and enter.
 ```
@@ -32,9 +32,25 @@ chmod +x pshit-dev
 sudo ln -s ~/example/path/pshit-dev /bin/pshit-dev
 ```   
 
-### Use   
+## Use   
 
-list **help** info
+List **help** info
 `pshit-dev --help`   
 
+**pshit** everything
+`pshit-dev --all`   
 
+Files in main directory
+`pshit-dev --files`   
+
+One file, in main directory
+`pshit-dev index.html`   
+
+A recursive directory in main dir
+`pshit-dev css`   
+
+## To-Do   
+
+- argument for switching **base** & **target** directories w/o having to make a new **pshit**   
+
+- deal with subdirectories   
