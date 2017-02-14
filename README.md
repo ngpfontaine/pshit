@@ -34,19 +34,19 @@ sudo ln -s ~/example/path/pshit-dev /bin/pshit-dev
 
 ## Use   
 
-List **help** info
+List **help** info   
 `pshit-dev --help`   
 
-**pshit** everything
+**pshit** everything   
 `pshit-dev --all`   
 
-Files in main directory
+Files in main directory   
 `pshit-dev --files`   
 
-One file, in main directory
+One file, in main directory   
 `pshit-dev index.html`   
 
-A recursive directory in main dir
+A recursive directory in main dir   
 `pshit-dev css`   
 
 ## To-Do   
