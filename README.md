@@ -3,7 +3,7 @@
 > a `cp` assistant      
    
    
-## Setup   
+### Setup   
 
 - Clone **pshit** wherever you want ( ` ~/ ` in this example) and enter.
 ```
@@ -29,7 +29,7 @@ bash pshit --setup
 - Run ` pshit --setup ` anytime to change it's functionality.   
 
 
-## Use   
+### Use   
 
 List **help** info   
 `pshit --help`   
@@ -47,8 +47,6 @@ A recursive directory in main dir
 `pshit css`   
 
 ## To-Do   
-
-- create symlink during **--setup**. need to get path of script as var
 
 - deal with subdirectories   
 
