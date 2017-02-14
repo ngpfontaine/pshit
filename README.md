@@ -32,11 +32,9 @@ bash pshit --setup
 ### Use   
 
 Run setup to set directories.
-- (first time from **pshit** directory)
-`bash pshit --setup`   
+`bash pshit --setup` _(first time from_ **pshit** _directory)_   
 
-- (any time after that)
-`pshit --setup`   
+`pshit --setup` _(any time after that)_   
 
 List **help** info   
 `pshit --help`   
