@@ -7,8 +7,8 @@ scriptName="$(basename $0)"
 # EX 3: $scriptName css
 # EX 3: $scriptName all
 
-baseDir='/example/local/path'
-remeoteDir='/example/remote/path'
+baseDir='/<example>/<local>/<path>'
+targetDir='/<example>/<remote>/<path>'
 
 bold=$(tput bold)
 normal=$(tput sgr0)
@@ -17,7 +17,7 @@ normal=$(tput sgr0)
 printf "\033c"
 
 # HEADER INFO
-echo "-- $scriptName --"
+echo ">> ${bold}${scriptName^^}${normal} >>"
 
 # HELP INFO
 if [[ $1 == "--help" ]];
@@ -26,21 +26,25 @@ then
   echo "valid cmd examples:"
   echo "$ ${bold}$scriptName index.html${normal}   will push -f arg to main -d"
   echo "$ ${bold}$scriptName css${normal}   will push -r -d arg to -d arg"
-  echo "$ ${bold}$scriptName css/main.css css${normal}   [will push -f arg to -d arg"
+  echo "$ ${bold}$scriptName css/main.css css${normal}   will push -f arg to -d arg"
   echo "$ ${bold}$scriptName --files${normal}   will push /* to main -d"
   echo "$ ${bold}$scriptName --all${normal}   will push /* -r to main -d"
+
+#
+# KEYWORD ARGUMENTS
+#
 
 # PUSH ALL
 elif [[ $1 == "--all" ]];
 then
-  sudo cp $ulDir/* -r $servDir/
-  echo "Pushing ${bold}$ulDir/* -r${normal} to ${bold}$servDir/${normal}"
+  sudo cp $baseDir/* -r $targetDir/
+  echo "Pushing ${bold}$baseDir/* -r${normal} to ${bold}$targetDir/${normal}"
 
 # PUSH FILES IN MAIN DIR
 elif [[ $1 == "--files" ]];
 then
-  sudo cp $ulDir/* $servDir/
-  echo "Pushing ${bold}$ulDir/*${normal} to ${bold}$servDir/${normal}";
+  sudo cp $baseDir/* $targetDir/
+  echo "Pushing ${bold}$baseDir/*${normal} to ${bold}$targetDir/${normal}";
 
 # $1 FILE ARGUMENT, EX: $scriptName scripts/main.js [...]
 elif [[ -f $ulDir/$1 ]];
@@ -49,36 +53,36 @@ then
   # $2 NO SERVER DIR ARG, EX: $scriptName scripts/main.js
   if [[ -z $2 ]];
   then
-    read -p "Push ${bold}$ulDir/$1${normal} to ${bold}$servDir/${normal}? ${bold}y/n${normal}: " -n 1 -r
+    read -p "Push ${bold}$baseDir/$1${normal} to ${bold}$targetDir/${normal}? ${bold}y/n${normal}: " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
-      sudo cp $ulDir/$1 $servDir/
+      sudo cp $baseDir/$1 $targetDir/
       echo "Success! ${bold}$1${normal} has been updated."
     fi
 
   # $2 SERVER DIR ARG, EX: $scriptName scripts/main.js scripts
-  elif [[ -d $ulDir/$2 ]];
+  elif [[ -d $baseDir/$2 ]];
   then
-    sudo cp $ulDir/$1 $servDir/$2/
-    echo "Pushing ${bold}$ulDir/$1${normal} to ${bold}$servDir/$2/${normal}"
+    sudo cp $baseDir/$1 $targetDir/$2/
+    echo "Pushing ${bold}$baseDir/$1${normal} to ${bold}$targetDir/$2/${normal}"
 
   fi
 
 # $1 DIR ARGUMENT, EX: scripts
-elif [[ -d $ulDir/$1 && -z $2 ]];
+elif [[ -d $baseDir/$1 && -z $2 ]];
 then
-  read -p "Push ${bold}$ulDir/$1${normal} to ${bold}$servDir/${normal}? ${bold}y/n${normal}: " -n 1 -r
+  read -p "Push ${bold}$baseDir/$1${normal} to ${bold}$targetDir/${normal}? ${bold}y/n${normal}: " -n 1 -r
   echo
   if [[ $REPLY =~ ^[Yy]$ ]]
   then
-    sudo cp $ulDir/$1/* -r $servDir/$1/
+    sudo cp $baseDir/$1/* -r $targetDir/$1/
     echo "Success! ${bold}$1/${normal} has been updated."
   fi
 
 # ERROR, NO ARGUMENT
 else
-  echo "no argument"
+  echo "No argument. For more info use $ ${bold}$scriptName --help${normal}"
 fi
 
 echo ""

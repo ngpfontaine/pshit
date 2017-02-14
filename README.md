@@ -9,7 +9,7 @@
 git clone https://github.com/ngpfontaine/pshit.git && cd pshit
 ```   
 
-- Make a new **pshit** from template.
+- Make a new **pshit** from template. This will be dedicated to copying files from `baseDir` > `targetDir`
 ```
 cp pshit pshit-dev
 ```   
@@ -18,8 +18,8 @@ cp pshit pshit-dev
 ```
 vim pshit-dev   
    
-baseDir='/example/local/path'
-remoteDir='/example/remote/path'
+baseDir='/<example>/<local>/<path>'
+targetDir='/<example>/<remote>/<path>'
 ```   
 
 - Make it executable.
