@@ -31,7 +31,7 @@ bash pshit --setup
 
 ### Use   
 
-Run setup to set directories.
+Run setup to set directories.   
 `bash pshit --setup` _(first time from_ **pshit** _directory)_   
 
 `pshit --setup` _(any time after that)_   
