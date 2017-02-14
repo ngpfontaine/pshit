@@ -9,14 +9,9 @@
 git clone https://github.com/ngpfontaine/pshit.git && cd pshit
 ```   
 
-- Make a new **pshit** from template. This will be dedicated to copying files from `baseDir` > `targetDir`
-```
-cp pshit pshit-dev
-```   
-
 - Open in editor and change pathing variables with your intended paths, then save.
 ```
-vim pshit-dev   
+vim pshit   
    
 baseDir='/<example>/<local>/<path>'
 targetDir='/<example>/<remote>/<path>'
@@ -24,30 +19,30 @@ targetDir='/<example>/<remote>/<path>'
 
 - Make it executable.
 ```
-chmod +x pshit-dev
+chmod +x pshit
 ```   
 
 - Create a symlink to your new **pshit** in root **/bin**.
 ```
-sudo ln -s ~/example/path/pshit-dev /bin/pshit-dev
+sudo ln -s ~/example/path/pshit /bin/pshit
 ```   
 
 ## Use   
 
 List **help** info   
-`pshit-dev --help`   
+`pshit --help`   
 
 **pshit** everything   
-`pshit-dev --all`   
+`pshit --all`   
 
 Files in main directory   
-`pshit-dev --files`   
+`pshit --files`   
 
 One file, in main directory   
-`pshit-dev index.html`   
+`pshit index.html`   
 
 A recursive directory in main dir   
-`pshit-dev css`   
+`pshit css`   
 
 ## To-Do   
 
