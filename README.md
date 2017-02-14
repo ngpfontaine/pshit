@@ -3,7 +3,7 @@
 > a `cp` assistant      
    
    
-### Setup   
+## Setup   
 
 - Clone **pshit** wherever you want ( ` ~/ ` in this example) and enter.
 ```
@@ -20,7 +20,7 @@ chmod +x pshit
 bash pshit --setup
 ```    
 
----   
+## Post Setup   
 
 - **pshit** can now be run w/o using `$ bash ...`   
 
@@ -29,7 +29,7 @@ bash pshit --setup
 - Run ` pshit --setup ` anytime to change it's functionality.   
 
 
-### Use   
+## Use   
 
 Run setup to set directories.   
 `bash pshit --setup` _(first time from_ **pshit** _directory)_   
