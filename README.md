@@ -27,6 +27,8 @@ chmod +x pshit
 sudo ln -s ~/pshit/pshit /bin/pshit
 ```   
 
+- Now you will be copying files from `~/example/` > `/var/www/example.com/public_html/` - thusly sudo will be invoked.
+
 ## Use   
 
 List **help** info   
