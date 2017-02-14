@@ -2,13 +2,12 @@
 
 # PUSH FILES, DIRECTORIES, OR RECURSIVE ALL TO LIVE SERVER
 scriptName="$(basename $0)"
-# EX 1: $scriptName index.html
-# EX 2: $scriptName scripts/main.js scripts
-# EX 3: $scriptName css
-# EX 3: $scriptName all
 
 baseDir='/<example>/<local>/<path>'
 targetDir='/<example>/<remote>/<path>'
+
+inpOne
+inpTwo
 
 bold=$(tput bold)
 normal=$(tput sgr0)
@@ -30,6 +29,12 @@ then
   echo "$ ${bold}$scriptName --files${normal}   will push /* to main -d"
   echo "$ ${bold}$scriptName --all${normal}   will push /* -r to main -d"
 
+
+elif [[ $1 == "--setup" ]];
+then
+	read -p "Enter base directory: " inputFirst
+	echo $inputFirst
+	#sed -i 's/inpOne/$inputFirst' $scriptName
 #
 # KEYWORD ARGUMENTS
 #
