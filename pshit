@@ -1,24 +1,21 @@
 #!/bin/bash
+baseDir='~/bar'
+targetDir='/var/www/bar.com'
 
-# PUSH FILES, DIRECTORIES, OR RECURSIVE ALL TO LIVE SERVER
 scriptName="$(basename $0)"
-
-baseDir='/<example>/<local>/<path>'
-targetDir='/<example>/<remote>/<path>'
-
-inpOne
-inpTwo
 
 bold=$(tput bold)
 normal=$(tput sgr0)
 
 # CLEAR PREVIOUS CONSOLE OUTPUT
 printf "\033c"
-
 # HEADER INFO
 echo ">> ${bold}${scriptName^^}${normal} >>"
 
+#
 # HELP INFO
+#
+
 if [[ $1 == "--help" ]];
 then
   echo ""
@@ -29,12 +26,24 @@ then
   echo "$ ${bold}$scriptName --files${normal}   will push /* to main -d"
   echo "$ ${bold}$scriptName --all${normal}   will push /* -r to main -d"
 
+#
+# SETUP FOR PATHING
+#
 
 elif [[ $1 == "--setup" ]];
 then
-	read -p "Enter base directory: " inputFirst
-	echo $inputFirst
-	#sed -i 's/inpOne/$inputFirst' $scriptName
+
+	read -p "Enter base directory (ex: ${bold}~/example${normal}): " inputFirst
+	sed -i '2s,.*,baseDir=\x27'"$inputFirst"'\x27,g' "$scriptName"
+
+	read -p "Enter target directory path (ex: ${bold}/var/www/example.com${normal}): " inputSecond
+	sed -i '3s,.*,targetDir=\x27'"$inputSecond"'\x27,g' "$scriptName"
+
+	echo "-----------------------------------------------------"
+	echo "You are now set up to ${bold}pshit${normal} from: ${bold}$inputFirst${normal} > ${bold}$inputSecond${normal}"
+	echo "Change anytime by running:"
+	echo "$ ${bold}pshit --setup${normal}"
+
 #
 # KEYWORD ARGUMENTS
 #
@@ -42,12 +51,14 @@ then
 # PUSH ALL
 elif [[ $1 == "--all" ]];
 then
+
   sudo cp $baseDir/* -r $targetDir/
   echo "Pushing ${bold}$baseDir/* -r${normal} to ${bold}$targetDir/${normal}"
 
 # PUSH FILES IN MAIN DIR
 elif [[ $1 == "--files" ]];
 then
+
   sudo cp $baseDir/* $targetDir/
   echo "Pushing ${bold}$baseDir/*${normal} to ${bold}$targetDir/${normal}";
 
@@ -58,17 +69,21 @@ then
   # $2 NO SERVER DIR ARG, EX: $scriptName scripts/main.js
   if [[ -z $2 ]];
   then
+
     read -p "Push ${bold}$baseDir/$1${normal} to ${bold}$targetDir/${normal}? ${bold}y/n${normal}: " -n 1 -r
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
+
       sudo cp $baseDir/$1 $targetDir/
       echo "Success! ${bold}$1${normal} has been updated."
+
     fi
 
   # $2 SERVER DIR ARG, EX: $scriptName scripts/main.js scripts
   elif [[ -d $baseDir/$2 ]];
   then
+
     sudo cp $baseDir/$1 $targetDir/$2/
     echo "Pushing ${bold}$baseDir/$1${normal} to ${bold}$targetDir/$2/${normal}"
 
@@ -77,17 +92,23 @@ then
 # $1 DIR ARGUMENT, EX: scripts
 elif [[ -d $baseDir/$1 && -z $2 ]];
 then
+
   read -p "Push ${bold}$baseDir/$1${normal} to ${bold}$targetDir/${normal}? ${bold}y/n${normal}: " -n 1 -r
   echo
+
   if [[ $REPLY =~ ^[Yy]$ ]]
   then
+
     sudo cp $baseDir/$1/* -r $targetDir/$1/
     echo "Success! ${bold}$1/${normal} has been updated."
+
   fi
 
 # ERROR, NO ARGUMENT
 else
+
   echo "No argument. For more info use $ ${bold}$scriptName --help${normal}"
+
 fi
 
 echo ""

@@ -10,14 +10,6 @@
 git clone https://github.com/ngpfontaine/pshit.git ~/pshit && cd ~/pshit
 ```   
 
-- Open in editor and change pathing variables with your intended paths, then save. Leave off trailing ` / ` .
-```
-vim pshit   
-   
-baseDir='~/example'
-targetDir='/var/www/example.com/public_html'
-```   
-
 - Make it executable.
 ```
 chmod +x pshit
@@ -28,7 +20,12 @@ chmod +x pshit
 sudo ln -s ~/pshit/pshit /bin/pshit
 ```   
 
-- Now **pshit** will copy files from `~/example/` > `/var/www/example.com/public_html/` (**note:** sudo will be invoked).
+- Run setup. You will be prompted to enter your  **base** & **remote** paths.
+```
+pshit --setup
+```   
+
+- Now **pshit** will copy files from `~/example/` > `/var/www/example.com/public_html/` (**note:** sudo will be invoked). Run ` pshit --setup ` anytime to change it's functionality.   
 
 ## Use   
 
@@ -49,6 +46,8 @@ A recursive directory in main dir
 
 ## To-Do   
 
-- argument for switching **base** & **target** directories w/o having to make a new **pshit**   
+- create symlink during **--setup**. need to get path of script as var
 
 - deal with subdirectories   
+
+
