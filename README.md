@@ -4,17 +4,17 @@
 
 ## Setup   
 
-- Clone **pshit** wherever you want and enter.
+- Clone **pshit** wherever you want (`~/` in this example) and enter.
 ```
-git clone https://github.com/ngpfontaine/pshit.git && cd pshit
+git clone https://github.com/ngpfontaine/pshit.git ~/ && cd ~/pshit
 ```   
 
 - Open in editor and change pathing variables with your intended paths, then save.
 ```
 vim pshit   
    
-baseDir='/<example>/<local>/<path>'
-targetDir='/<example>/<remote>/<path>'
+baseDir='~/example'
+targetDir='/var/www/example.com/public_html'
 ```   
 
 - Make it executable.
@@ -24,7 +24,7 @@ chmod +x pshit
 
 - Create a symlink to your new **pshit** in root **/bin**.
 ```
-sudo ln -s ~/example/path/pshit /bin/pshit
+sudo ln -s ~/pshit/pshit /bin/pshit
 ```   
 
 ## Use   
