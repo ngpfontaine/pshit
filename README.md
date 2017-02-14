@@ -4,12 +4,12 @@
 
 ## Setup   
 
-- Clone **pshit** wherever you want (` ~/ ` in this example) and enter.
+- Clone **pshit** wherever you want ( ` ~/ ` in this example) and enter.
 ```
 git clone https://github.com/ngpfontaine/pshit.git ~/pshit && cd ~/pshit
 ```   
 
-- Open in editor and change pathing variables with your intended paths, then save.
+- Open in editor and change pathing variables with your intended paths, then save. Leave off trailing ` / ` .
 ```
 vim pshit   
    
