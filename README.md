@@ -57,6 +57,8 @@ A recursive directory in main dir
 
 - swap `~/` for `/home/<user>` path   
 
+- `cp -rf` creates read only files, and dir is owned by root   
+
 - `-ru` by default. flag to disable `-u`   
 
 - cp & mkdir   
