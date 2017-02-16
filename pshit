@@ -1,6 +1,6 @@
 #!/bin/bash
-baseDir='~/bar'
-targetDir='/var/www/bar.com'
+baseDir='/home/nic/example'
+targetDir='/media/nic/GLORIA'
 
 scriptName="$(basename $0)"
 scriptPath="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
@@ -69,40 +69,42 @@ then
 #
 
 # PUSH ALL
-elif [[ $1 == "--all" ]];
-then
+elif [[ $1 == "--all" ]]; then
 
   sudo cp $baseDir/* -r $targetDir/
   echo "Pushing ${bold}$baseDir/* -r${normal} to ${bold}$targetDir/${normal}"
 
 # PUSH FILES IN MAIN DIR
-elif [[ $1 == "--files" ]];
-then
+elif [[ $1 == "--files" ]]; then
 
   sudo cp $baseDir/* $targetDir/
   echo "Pushing ${bold}$baseDir/*${normal} to ${bold}$targetDir/${normal}";
 
-# $1 FILE ARGUMENT, EX: $scriptName scripts/main.js [...]
-elif [[ -f $baseDir/$1 ]];
-then
+# $1 FILE ARGUMENT ---- EX: $ pshit scripts/main.js
+elif [[ -f $baseDir/$1 ]]; then
 
-  # $2 NO SERVER DIR ARG, EX: $scriptName scripts/main.js
-  if [[ -z $2 ]];
-  then
+  # $2 NO SERVER DIR ARG ---- EX: $ pshit scripts/main.js
+  if [[ -z $2 ]]; then
 
     read -p "Push ${bold}$baseDir/$1${normal} to ${bold}$targetDir/${normal}? ${bold}y/n${normal}: " -n 1 -r
     echo
-    if [[ $REPLY =~ ^[Yy]$ ]]
-    then
 
-      sudo cp $baseDir/$1 $targetDir/
-      echo "Success! ${bold}$1${normal} has been updated."
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+			
+			# IF REMOTE DIR EXISTS (NOTE) NEED TO SPLIT BY / TO SEPARATE DIR FROM FILE
+			# if [[ -z $remoteDir/ ]]; then
+			sudo cp $baseDir/$1 $targetDir/
+			echo "Success! ${bold}$1${normal} has been updated."
+
+			# else
+
+				# sudo mkdir -p $remoteDir/$baseDir
+				# install -D file -m 644 -t $remoteDir/$1
 
     fi
 
-  # $2 SERVER DIR ARG, EX: $scriptName scripts/main.js scripts
-  elif [[ -d $baseDir/$2 ]];
-  then
+  # $2 SERVER DIR ARG ---- EX: $ pshit scripts/main.js scripts
+  elif [[ -d $baseDir/$2 ]]; then
 
     sudo cp $baseDir/$1 $targetDir/$2/
     echo "Pushing ${bold}$baseDir/$1${normal} to ${bold}$targetDir/$2/${normal}"
@@ -110,14 +112,12 @@ then
   fi
 
 # $1 DIR ARGUMENT, EX: scripts
-elif [[ -d $baseDir/$1 && -z $2 ]];
-then
+elif [[ -d $baseDir/$1 && -z $2 ]]; then
 
   read -p "Push ${bold}$baseDir/$1${normal} to ${bold}$targetDir/${normal}? ${bold}y/n${normal}: " -n 1 -r
   echo
 
-  if [[ $REPLY =~ ^[Yy]$ ]]
-  then
+  if [[ $REPLY =~ ^[Yy]$ ]]; then
 
     sudo cp $baseDir/$1/* -r $targetDir/$1/
     echo "Success! ${bold}$1/${normal} has been updated."
