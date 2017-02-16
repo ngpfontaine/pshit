@@ -1,6 +1,6 @@
 #!/bin/bash
 baseDir='/home/nic/example'
-targetDir='/media/nic/GLORIA'
+targetDir='/home/nic/example.com'
 
 scriptName="$(basename $0)"
 scriptPath="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOURCE[0]}")"
@@ -8,9 +8,9 @@ scriptPath="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/$(basename "${BASH_SOU
 # GET PATH OF SCRIPT, EVEN IF IS SYMLINK
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symlink
-  DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
-  SOURCE="$(readlink "$SOURCE")"
-  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+	DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+	SOURCE="$(readlink "$SOURCE")"
+	[[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
@@ -22,7 +22,7 @@ printf "\033c"
 # HEADER INFO
 echo ">> ${bold}${scriptName^^}${normal} >>"
 echo "-----------------------------------------------------"
-echo "$baseDir/$1"
+#echo "$baseDir/$1"
 
 #
 # HELP INFO
@@ -30,12 +30,28 @@ echo "$baseDir/$1"
 
 if [[ $1 == "--help" ]];
 then
-  echo "Valid cmd examples:"
-  echo "$ ${bold}$scriptName index.html${normal}   will push -f arg to main -d"
-  echo "$ ${bold}$scriptName css${normal}   will push -r -d arg to -d arg"
-  echo "$ ${bold}$scriptName css/main.css css${normal}   will push -f arg to -d arg"
-  echo "$ ${bold}$scriptName --files${normal}   will push /* to main -d"
-  echo "$ ${bold}$scriptName --all${normal}   will push /* -r to main -d"
+
+	echo "Example Project Structure:"
+	printf "\n
+${bold}example${normal}
+├── index.html
+├── robots.txt
+└── ${bold}css${normal}
+     ├── main.css
+     ├── header.css
+     └── ${bold}min${normal}
+          └── main.min.css
+          └── header.min.css"
+	echo ""
+	echo "Valid Command Examples:"
+	echo ""
+	echo "$ ${bold}$scriptName index.html${normal}   will push -f arg to main -d, only if in main -d"
+	echo "$ ${bold}$scriptName index.html${normal}  no validation"
+	echo "$ ${bold}$scriptName css${normal}   will create -d and push -r -d arg to -d arg"
+	echo "$ ${bold}$scriptName css -y${normal}  no validation"
+	echo "$ ${bold}$scriptName css/main.css css${normal}   will push -f arg to -d arg"
+	echo "$ ${bold}$scriptName --files${normal}   will push /* to main -d"
+	echo "$ ${bold}$scriptName --all${normal}   will push /* -r to main -d"
 
 #
 # SETUP FOR PATHING
@@ -45,10 +61,10 @@ elif [[ $1 == "--setup" ]];
 then
 
 	# LOG INPUTS TO VARS
-	read -p "Enter base directory (ex: ${bold}~/example${normal}): " inputFirst
+	read -p "Enter base directory. ex: ${bold}/home/<user>/example${normal} : " inputFirst
 	sed -i '2s,.*,baseDir=\x27'"$inputFirst"'\x27,g' "$scriptName"
 
-	read -p "Enter target directory path (ex: ${bold}/var/www/example.com${normal}): " inputSecond
+	read -p "Enter target directory path ex: ${bold}/var/www/example.com${normal} : " inputSecond
 	sed -i '3s,.*,targetDir=\x27'"$inputSecond"'\x27,g' "$scriptName"
 	
 	# PRINT OUT INFO & SETUP
@@ -71,29 +87,35 @@ then
 # PUSH ALL
 elif [[ $1 == "--all" ]]; then
 
-  sudo cp $baseDir/* -r $targetDir/
-  echo "Pushing ${bold}$baseDir/* -r${normal} to ${bold}$targetDir/${normal}"
+	sudo cp -ru $baseDir/* -r $targetDir/
+	echo "Pushing ${bold}$baseDir/* -r${normal} to ${bold}$targetDir/${normal}"
 
 # PUSH FILES IN MAIN DIR
 elif [[ $1 == "--files" ]]; then
 
-  sudo cp $baseDir/* $targetDir/
-  echo "Pushing ${bold}$baseDir/*${normal} to ${bold}$targetDir/${normal}";
+	sudo cp -u $baseDir/* $targetDir/
+	echo "Pushing ${bold}$baseDir/*${normal} to ${bold}$targetDir/${normal}";
 
 # $1 FILE ARGUMENT ---- EX: $ pshit scripts/main.js
 elif [[ -f $baseDir/$1 ]]; then
 
-  # $2 NO SERVER DIR ARG ---- EX: $ pshit scripts/main.js
-  if [[ -z $2 ]]; then
+	# -y FLAG TO BYPASS VALIDATE MSG
+	if [[ $2 == "-y" ]]; then
+	
+		sudo cp -u $baseDir/$1 $targetDir/
+		echo "Success! ${bold}$1${normal} has been updated."
 
-    read -p "Push ${bold}$baseDir/$1${normal} to ${bold}$targetDir/${normal}? ${bold}y/n${normal}: " -n 1 -r
-    echo
+	# $2 NO SERVER DIR ARG ---- EX: $ pshit scripts/main.js
+	elif [[ -z $2 ]]; then
 
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
+		read -p "Push ${bold}$baseDir/$1${normal} to ${bold}$targetDir/${normal}? ${bold}y/n${normal}: " -n 1 -r
+		echo
+
+		if [[ $REPLY =~ ^[Yy]$ ]]; then
 			
 			# IF REMOTE DIR EXISTS (NOTE) NEED TO SPLIT BY / TO SEPARATE DIR FROM FILE
 			# if [[ -z $remoteDir/ ]]; then
-			sudo cp $baseDir/$1 $targetDir/
+			sudo cp -u $baseDir/$1 $targetDir/
 			echo "Success! ${bold}$1${normal} has been updated."
 
 			# else
@@ -101,33 +123,50 @@ elif [[ -f $baseDir/$1 ]]; then
 				# sudo mkdir -p $remoteDir/$baseDir
 				# install -D file -m 644 -t $remoteDir/$1
 
-    fi
+		fi
 
-  # $2 SERVER DIR ARG ---- EX: $ pshit scripts/main.js scripts
-  elif [[ -d $baseDir/$2 ]]; then
+	# $2 SERVER DIR ARG ---- EX: $ pshit scripts/main.js scripts
+	elif [[ -d $baseDir/$2 ]]; then
 
-    sudo cp $baseDir/$1 $targetDir/$2/
-    echo "Pushing ${bold}$baseDir/$1${normal} to ${bold}$targetDir/$2/${normal}"
+		sudo cp -u $baseDir/$1 $targetDir/$2/
+		echo "Pushing ${bold}$baseDir/$1${normal} to ${bold}$targetDir/$2/${normal}"
 
-  fi
+	fi
 
-# $1 DIR ARGUMENT, EX: scripts
-elif [[ -d $baseDir/$1 && -z $2 ]]; then
+# $1 DIR ARGUMENT, EX: $ pshit scripts
+# (NOTE) ADD OPTIONS FOR $2 == "-y" , and ! -d $2
+elif [[ -d $baseDir/$1 ]]; then
 
-  read -p "Push ${bold}$baseDir/$1${normal} to ${bold}$targetDir/${normal}? ${bold}y/n${normal}: " -n 1 -r
-  echo
+	# BYPASS VALIDATE
+	if [[ $2 == "-y" ]]; then
 
-  if [[ $REPLY =~ ^[Yy]$ ]]; then
+		sudo cp -rf $baseDir/$1/ $targetDir/
+		echo "Success! ${bold}$1/${normal} has been updated."
 
-    sudo cp $baseDir/$1/* -r $targetDir/$1/
-    echo "Success! ${bold}$1/${normal} has been updated."
+	# SECOND ARG IS DIR
+	elif [[ -d $2 ]]; then
 
-  fi
+		echo "second arg is dir"
+
+	# NO DESTINATION DIR ARG, NO -y
+	else
+
+		read -p "Push ${bold}$baseDir/$1${normal} to ${bold}$targetDir/${normal}? ${bold}y/n${normal}: " -n 1 -r
+		echo
+
+		if [[ $REPLY =~ ^[Yy]$ ]]; then
+			# RECURSIVE ALL, & CREATE
+			sudo cp -rf $baseDir/$1/ $targetDir/
+			echo "Success! ${bold}$1/${normal} has been updated."
+
+		fi
+
+	fi
 
 # ERROR, NO ARGUMENT
 else
 
-  echo "No argument. For more info use $ ${bold}$scriptName --help${normal}"
+	echo "No argument. For more info use $ ${bold}$scriptName --help${normal}"
 
 fi
 

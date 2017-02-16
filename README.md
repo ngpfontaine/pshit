@@ -55,9 +55,13 @@ A recursive directory in main dir
 
 ## To-Do   
 
+- swap `~/` for `/home/<user>` path   
+
+- `-ru` by default. flag to disable `-u`   
+
 - cp & mkdir   
 
-- add all accept prompts   
+- add all _accept_ prompts   
 
 - `-y` option to bypass prompts   
 
