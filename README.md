@@ -55,6 +55,12 @@ A recursive directory in main dir
 
 ## To-Do   
 
+- cp & mkdir   
+
+- add all accept prompts   
+
+- `-y` option to bypass prompts   
+
 - deal with subdirectories   
 
 
