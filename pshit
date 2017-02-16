@@ -82,7 +82,7 @@ then
   echo "Pushing ${bold}$baseDir/*${normal} to ${bold}$targetDir/${normal}";
 
 # $1 FILE ARGUMENT, EX: $scriptName scripts/main.js [...]
-elif [[ -f $ulDir/$1 ]];
+elif [[ -f $baseDir/$1 ]];
 then
 
   # $2 NO SERVER DIR ARG, EX: $scriptName scripts/main.js
