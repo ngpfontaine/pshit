@@ -49,6 +49,7 @@ ${bold}example${normal}
 	echo "$ ${bold}$scriptName index.html${normal}  no validation"
 	echo "$ ${bold}$scriptName css${normal}   will create -d and push -r -d arg to -d arg"
 	echo "$ ${bold}$scriptName css -y${normal}  no validation"
+	echo "$ ${bold}$scriptName css/min${normal}  create or update min/ in css/"
 	echo "$ ${bold}$scriptName css/main.css css${normal}   will push -f arg to -d arg"
 	echo "$ ${bold}$scriptName --files${normal}   will push /* to main -d"
 	echo "$ ${bold}$scriptName --all${normal}   will push /* -r to main -d"
@@ -156,7 +157,7 @@ elif [[ -d $baseDir/$1 ]]; then
 
 		if [[ $REPLY =~ ^[Yy]$ ]]; then
 			# RECURSIVE ALL, & CREATE
-			sudo cp -rf $baseDir/$1/ $targetDir/
+			sudo cp -rf $baseDir/$1/ $targetDir/$1
 			echo "Success! ${bold}$1/${normal} has been updated."
 
 		fi

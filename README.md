@@ -59,6 +59,8 @@ A recursive directory in main dir
 
 - `cp -rf` creates read only files, and dir is owned by root   
 
+- error for `css/min` when `css` does not exist   
+
 - `-ru` by default. flag to disable `-u`   
 
 - cp & mkdir   
